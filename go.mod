@@ -1,5 +1,5 @@
 module github.com/heptalium/httputil
 
-go 1.19
+go 1.20
 
-require github.com/gorilla/schema v1.2.0
+require github.com/gorilla/schema v1.4.1

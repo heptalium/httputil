@@ -6,8 +6,8 @@ processing HTTP requests.
 ## ParseRequest
 
 ParseRequest parses HTTP requests into a struct. It supports POST form
-values and JSON encoded data as request. The request type is determined
-by the Content-Type header.
+values, JSON encoded data and XML encoded as request. The request type
+is determined by the Content-Type header.
 
 ## WriteHttpStatus
 

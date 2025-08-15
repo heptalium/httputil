@@ -28,6 +28,13 @@ func ParseRequest(w http.ResponseWriter, r *http.Request, data interface{}) erro
 			WriteHttpStatus(w, http.StatusBadRequest)
 			return err
 		}
+	case "multipart/form-data":
+		r.ParseMultipartForm(64 * 1024 * 1024)
+		err := schema.NewDecoder().Decode(data, r.PostForm)
+		if err != nil {
+			WriteHttpStatus(w, http.StatusBadRequest)
+			return err
+		}
 	case "application/json":
 		err := json.NewDecoder(r.Body).Decode(&data)
 		if err != nil {
@@ -41,7 +48,7 @@ func ParseRequest(w http.ResponseWriter, r *http.Request, data interface{}) erro
 			return err
 		}
 	default:
-		w.Header().Set("Accept", "application/x-www-form-urlencoded, application/json, application/xml, text/xml")
+		w.Header().Set("Accept", "application/x-www-form-urlencoded, multipart/form-data, application/json, application/xml, text/xml")
 		WriteHttpStatus(w, http.StatusUnsupportedMediaType)
 		return fmt.Errorf("Unsupported Media Type: %s", mediaType)
 	}
